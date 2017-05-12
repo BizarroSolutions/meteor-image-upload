@@ -21,6 +21,12 @@ Template.uploadImage.helpers({
 });
 
 Template.uploadImage.events({
+  "click .button-upload": function(event) {
+      event.preventDefault();
+      var buttonName = this.buttonName;
+      $("input[button-name=" + buttonName + "]").click();
+  },
+
   "change [data-action=image-file-picker]": function(event, template) {
     var self = this;
     var file = event.target.files[0];

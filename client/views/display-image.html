@@ -1,13 +1,26 @@
 <template name="displayImage">
-  {{#if thumbnail}}
-    <img class="uploaded-image {{../classImage}}" src="{{thumbnail}}"/>
-  {{else}}
-    {{#unless isUploaded}}
-      Uploading ({{uploadProgress}})...
-    {{else}}
-      Processing...
-    {{/unless}}
-  {{/if}}
-  <input type="button" value="Delete" data-action="delete-image" class="delete-image"/>
-  <input type="hidden" name='imageId' value="{{_id}}" class="image-id"/>
+    <div class="ui header">
+        {{#if thumbnail}}
+            <img class="uploaded-image {{../classImage}}" src="{{thumbnail}}"/>
+        {{else}}
+            {{#unless isUploaded}}
+                {{> uploadingImage}}
+            {{else}}
+                <div class="ui basic segment">
+                    <div class="ui active inverted dimmer">
+                        <div class="ui text loader">{{../processingText}}</div>
+                    </div>
+                </div>
+            {{/unless}}
+        {{/if}}
+        <div class="delete-image {{../deleteButtonClass}}" data-action="delete-image">{{../deleteButtonIcon}}{{../deleteButtonText}}</div>
+        <input type="hidden" name='imageId' value="{{_id}}" class="image-id"/>
+    </div>
+</template>
+
+<template name="uploadingImage">
+    <div class="ui indicating progress {{../progressClass}}" data-value="1" data-total="100" data-percent="{{uploadProgress}}">
+        <div class="bar" style="transition-duration: 300ms; width: {{uploadProgress}}%;"></div>
+        <div class="label">{{uploadProgress}}</div>
+    </div>
 </template>

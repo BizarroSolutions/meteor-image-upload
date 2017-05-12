@@ -5,10 +5,10 @@
 # but you can also edit it by hand.
 
 accounts-ui
-okgrow:image-upload
+# okgrow:image-upload
 pauldowman:dotenv
 accounts-meteor-developer
-twbs:bootstrap
+#twbs:bootstrap
 meteor-base
 mobile-experience
 mongo
@@ -22,5 +22,8 @@ random
 ejson
 spacebars
 check
-standard-minifier-css
 standard-minifier-js
+bizarro:image-upload
+semantic:ui
+juliancwirko:postcss
+less

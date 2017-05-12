@@ -1,7 +1,8 @@
 <template name="uploadImage">
-  {{#if image}}
-    {{> displayImage image}}
-  {{else}}
-    <input name="{{inputName}}" type="file" accept="image/*" value="{{image}}" class="image-file-picker {{classInput}}" data-action="image-file-picker">
-  {{/if}}
+    {{#if image}}
+        {{> displayImage image}}
+    {{else}}
+        <div class="button-upload {{buttonClass}}" button-name="{{buttonName}}">{{buttonIcon}}{{buttonText}}</div>
+        <input name="{{inputName}}" type="file" button-name="{{buttonName}}" accept="image/*" value="{{image}}" class="image-file-picker {{classInput}}" data-action="image-file-picker" style="display: none;">
+    {{/if}}
 </template>

@@ -1,7 +1,7 @@
 Template.displayImage.helpers({
   thumbnail: function () {
     var doc = Template.parentData(1);
-    var store = doc.imageCollection + "-original";
+    var store = doc.imageCollection + "-thumbnail";
     if(doc.size){
       store = doc.imageCollection + "-" + doc.size;
     }
@@ -9,8 +9,20 @@ Template.displayImage.helpers({
   }
 });
 
+Template.uploadingImage.onRendered(function uploadingImageOnRendered() {
+    $('.ui.progress')
+        .progress({
+            total: 100,
+            text: {
+                active: 'Uploading... ',
+                success: 'Uploaded'
+            }
+        })
+    ;
+});
+
 Template.displayImage.events({
-  "click [data-action=delete-image]": function () {
-    this.collection.remove(this._id);
-  }
+    "click [data-action=delete-image]": function () {
+        this.collection.remove(this._id);
+    }
 });

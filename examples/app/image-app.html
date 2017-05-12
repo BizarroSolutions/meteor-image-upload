@@ -3,38 +3,56 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 pull-right">
-        {{> loginButtons}}
+  <div class="ui container">
+      <div class="ui grid">
+          <div class="row">
+              <div class="sixteen wide column">
+                  {{> loginButtons}}
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="seven wide column">
+                  {{> users}}
+
+                  <div class="ui divider"></div>
+
+                  <div class="ui warning message">
+                      <i class="close icon"></i>
+                      <div class="header">
+                          Warning!
+                      </div>
+                      Note that all data (users, posts, images) are purged periodically. If everything disappears while
+                      you're viewing this, that's what has happened. You can view this app's
+                      <a href="https://github.com/okgrow/meteor-image-upload/tree/master/examples/app">source code</a>.
+                  </div>
+
+                  {{#if currentUser}}
+                      {{> profile}}
+                      <!--{{> Template.dynamic template=formTemplate data=formData}}-->
+                  {{else}}
+                      Sign in to send a chat message
+                  {{/if}}
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-5">
-        {{> users}}
-        <hr/>
-        <p class="bg-warning">Note that all data (users, posts, images) are purged periodically. If everything disappears while you're viewing this, that's what has happened.</p>
-        <p>You can view this app's <a href="https://github.com/okgrow/meteor-image-upload/tree/master/examples/app">source code</a>.</p>
-        <hr/>
-        {{#if currentUser}}
-          {{> profile}}
-          <hr/>
-          {{> Template.dynamic template=formTemplate data=formData}}
-          <hr/>
-        {{else}}
-          Sign in to send a chat message
-        {{/if}}
-        {{> posts}}
-      </div>
-    </div>
   </div>
 </body>
 
 <template name="profile">
-  <p>
-    Choose a profile avatar:
-    {{> uploadImage imageCollection="userImages" doc=currentUser classImage="image-round" classInput="image-picker" inputName="user-image"}}
-  </p>
+  <div class="ui blue segment">
+      <form class="ui form">
+          <div class="ui field">
+              <label>Choose a profile avatar:</label>
+              {{> uploadImage imageCollection="userImages" doc=currentUser
+              classImage="ui small circular image" classInput="image-picker" inputName="user-image"
+              buttonName="profileImage" buttonClass="ui blue button" buttonText="Upload"
+              deleteButtonClass="ui red button" deleteButtonText="Deletar"
+              uploadingText="Fazendo Upload" processingText="Processando..."
+              }}
+          </div>
+      </form>
+  </div>
 </template>
 
 <template name="users">
@@ -50,10 +68,12 @@
 
 <template name="user">
   <li>
-    {{id}}
-    {{#if avatar}}
-      <img class="uploaded-image" src="{{imageUrl}}"/>
-    {{/if}}
+      <h2 class="ui header">
+          {{#if avatar}}
+              <img class="uploaded-image ui circular image" src="{{imageUrl}}"/>
+          {{/if}}
+          {{id}}
+      </h2>
   </li>
 </template>
 
@@ -65,7 +85,7 @@
     </p>
     <p>
       and/or upload an image:
-      {{> uploadImage imageCollection="postImages" name="post-image" size="thumbnail" classInput="image-picker" inputName="post-image"}}
+      {{> uploadImage imageCollection="postImages" name="post-image" size="thumbnail" classInput="image-picker" inputName="post-image" buttonName="postImage" buttonClass="ui button" buttonText="Post Photo"}}
     </p>
     <input type="submit"/>
   </form>
